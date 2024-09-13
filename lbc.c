@@ -51,8 +51,8 @@ static bc_num Pget(lua_State *L, int i)
    bc_str2num(&x,(char*)s,digits);
    if (bc_is_zero(x))			/* bc_str2num chokes on sci notation */
    {
-	char *t=strchr(s,'e');
-	if (t==NULL) t=strchr(s,'E');
+	char *t=(char *)strchr(s,'e');
+	if (t==NULL) t=(char *)strchr(s,'E');
 	if (t!=NULL)
 	{
 		bc_num y=NULL,n=NULL;
@@ -72,7 +72,7 @@ static bc_num Pget(lua_State *L, int i)
    return x;
   }
   default:
-   return luaL_unboxpointer(L,i,MYTYPE);
+   return (bc_num)luaL_unboxpointer(L,i,MYTYPE);
  }
  return NULL;
 }
